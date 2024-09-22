@@ -1,8 +1,10 @@
 public with sharing class AccountController {
+
+    private static final String INDUSTRY_FINANCIAL_SERVICES = 'Financial Services';
     
     @AuraEnabled(cacheable=true)
     public static List<AccountWrapper> getFinancialServicesAccounts(String searchTerm, String sortBy, String sortDirection) {
-        String query = 'SELECT Id, Name, Owner.Name, Phone, Website, AnnualRevenue FROM Account WHERE Industry = \'Financial Services\'';
+        String query = 'SELECT Id, Name, Owner.Name, Phone, Website, AnnualRevenue FROM Account WHERE Industry = \'' + INDUSTRY_FINANCIAL_SERVICES + '\'';
         
         if (searchTerm != null && searchTerm != '') {
             query += ' AND Name LIKE \'%' + String.escapeSingleQuotes(searchTerm) + '%\'';
