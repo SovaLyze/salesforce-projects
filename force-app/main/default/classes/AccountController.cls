@@ -1,9 +1,22 @@
 public with sharing class AccountController {
 
     private static final String INDUSTRY_FINANCIAL_SERVICES = 'Financial Services';
+
+    private static String customAccountProfileId;
+    private static String systemAdminProfileId;
+
+    static {
+        customAccountProfileId = [SELECT Id FROM Profile WHERE Name = 'Custom Account Profile' LIMIT 1].Id;
+        systemAdminProfileId = [SELECT Id FROM Profile WHERE Name = 'System Administrator' LIMIT 1].Id;
+    }
     
     @AuraEnabled(cacheable=true)
     public static List<AccountWrapper> getFinancialServicesAccounts(String searchTerm, String sortBy, String sortDirection) {
+
+        if (!isUserAllowedToAccess()) {
+            throw new AuraHandledException('Access denied: You do not have permission to view financial services accounts.');
+        }
+
         String query = 'SELECT Id, Name, Owner.Name, Phone, Website, AnnualRevenue FROM Account WHERE Industry = \'' + INDUSTRY_FINANCIAL_SERVICES + '\'';
         
         if (searchTerm != null && searchTerm != '') {
@@ -28,6 +41,11 @@ public with sharing class AccountController {
         }
         
         return wrappedAccounts;
+    }
+
+    private static Boolean isUserAllowedToAccess() {
+        String currentProfileId = UserInfo.getProfileId();
+        return currentProfileId == customAccountProfileId || currentProfileId == systemAdminProfileId;
     }
 
     // Wrapper class to include Owner.Name field

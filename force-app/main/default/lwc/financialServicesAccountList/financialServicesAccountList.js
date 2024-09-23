@@ -6,7 +6,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const COLUMNS = [
     { label: 'Account Name', fieldName: 'Name', type: 'text', sortable: true, editable: true },
-    { label: 'Account Owner', fieldName: 'OwnerName', type: 'text', sortable: true }, // OwnerName will now be handled correctly
+    { label: 'Account Owner', fieldName: 'OwnerName', type: 'text', sortable: true }, // OwnerName will be handled correctly
     { label: 'Phone', fieldName: 'Phone', type: 'phone', editable: true },
     { label: 'Website', fieldName: 'Website', type: 'url', editable: true },
     { label: 'Annual Revenue', fieldName: 'AnnualRevenue', type: 'currency', editable: true },
