@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title="Task List with Related Info" class="slds-m-around_medium">
+        <template if:true={tasks}>
+            <lightning-datatable
+                key-field="id"
+                data={tasks}
+                columns={columns}
+                hide-checkbox-column="true"
+                default-sort-direction="asc"
+                sorted-by="subject"
+                sorted-direction="asc">
+            </lightning-datatable>
+        </template>
+        <template if:true={error}>
+            <p class="error">Error fetching tasks</p>
+        </template>
+    </lightning-card>
+
+    <!-- Button to trigger updating the Who Name -->
+    <lightning-button label="Update Who Name" onclick={updateWhoName}></lightning-button>
+</template>
