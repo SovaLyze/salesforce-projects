@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="I am parent with SPREAD property " icon-name="utility:user">
+        <div class="slds-var-m-around_medium">
+            <div style="padding:10px">
+                <lightning-input type="number" value={childData.percentage} onchange={handleOnchangePercentage}></lightning-input>
+                <lightning-input type="text" value={childData.myname} onchange={handleOnchangeName}></lightning-input>
+                <c-child-component lwc:spread={childData}></c-child-component>
+            </div>
+        </div>
+    </lightning-card>
+</template>
